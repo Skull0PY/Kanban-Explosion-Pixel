@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kanban</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Kanban, Explosion Pixel</h1>
+  <nav id="documentos">
+    <a href="guia_organizacao_game_dev.pdf" target="_blank">📘 Guia de Organização</a>
+    <a href="GDD_Turno_de_Avaliacao.docx" target="_blank">🎮 GDD Turno de Avaliação</a>
+    <a href="sistema_avaliacao.pdf" target="_blank">📊 Sistema de Avaliação</a>
+  </nav>
+
+  <div id="formulario">
+    <input type="text" id="novaTarefa" placeholder="Nova tarefa...">
+    <select id="responsavel">
+      <option value="">Sem responsável</option>
+      <option>Marlem</option>
+      <option>Sammy</option>
+      <option>Victor</option>
+      <option>Roberto</option>
+      <option>Jadilson</option>
+    </select>
+    <select id="prioridade">
+      <option value="baixa">Prioridade baixa</option>
+      <option value="media" selected>Prioridade média</option>
+      <option value="alta">Prioridade alta</option>
+    </select>
+    <button id="botaoAdicionar">Adicionar</button>
+  </div>
+
+  <div id="filtros">
+    <button data-nome="" class="ativo">Todos</button>
+    <button data-nome="Marlem">Marlem</button>
+    <button data-nome="Sammy">Sammy</button>
+    <button data-nome="Victor">Victor</button>
+    <button data-nome="Roberto">Roberto</button>
+    <button data-nome="Jadilson">Jadilson</button>
+  </div>
+
+  <p id="status">Conectando...</p>
+
+  <div id="backup">
+    <button id="botaoExportar">⬇ Exportar tarefas</button>
+    <button id="botaoImportar">⬆ Importar tarefas</button>
+    <input type="file" id="arquivoImportar" accept=".json,application/json" hidden>
+  </div>
+
+  <div id="quadro">
+    <div class="coluna" id="backlog">
+      <h2>Backlog</h2>
+    </div>
+    <div class="coluna" id="afazer">
+      <h2>A Fazer</h2>
+    </div>
+    <div class="coluna" id="progresso">
+      <h2>Em Progresso</h2>
+    </div>
+    <div class="coluna" id="bloqueado">
+      <h2>Bloqueado</h2>
+    </div>
+    <div class="coluna" id="revisao">
+      <h2>Em Revisão</h2>
+    </div>
+    <div class="coluna" id="concluido">
+      <h2>Concluído</h2>
+    </div>
+  </div>
+
+  <section id="explicacao">
+    <h2>O que cada coluna significa</h2>
+    <div class="guia">
+      <div class="item">
+        <h3>Backlog</h3>
+        <p>Central de ideias e de todas as tarefas futuras do jogo. Toda tarefa nova começa aqui.</p>
+      </div>
+      <div class="item">
+        <h3>A Fazer</h3>
+        <p>Tarefas específicas priorizadas para a semana atual.</p>
+      </div>
+      <div class="item">
+        <h3>Em Progresso</h3>
+        <p>O foco do dia. O próprio funcionário move a tarefa pra cá quando começa a trabalhar nela.</p>
+      </div>
+      <div class="item">
+        <h3>Bloqueado</h3>
+        <p>Tarefas paradas por dependência externa ou dúvidas. Avise na daily pra destravar.</p>
+      </div>
+      <div class="item">
+        <h3>Em Revisão</h3>
+        <p>A entrega está pronta e aguarda a avaliação e aprovação do diretor.</p>
+      </div>
+      <div class="item">
+        <h3>Concluído</h3>
+        <p>Tarefas validadas e integradas ao projeto.</p>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

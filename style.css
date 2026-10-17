@@ -1,0 +1,251 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #1e1e2e;
+  color: #ffffff;
+  margin: 0;
+  padding: 10px;
+}
+
+h1 {
+  text-align: center;
+}
+
+#quadro {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  align-items: flex-start;
+}
+
+.coluna {
+  background: #2a2a3c;
+  border-radius: 8px;
+  padding: 6px;
+  min-width: 100px;
+  flex: 1;
+  min-height: 300px;
+}
+
+.coluna h2 {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #444;
+}
+
+.cartao {
+  background: #3b3b52;
+  border-radius: 6px;
+  padding: 6px;
+  margin-bottom: 6px;
+  cursor: grab;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.dono {
+  font-size: 10px;
+  color: #b5aaff;
+}
+
+.dono:empty {
+  display: none;
+}
+
+/* Prioridade: bolinha colorida */
+.prio {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.prio-baixa { background: #4caf7d; }
+.prio-media { background: #f0c040; }
+.prio-alta  { background: #ff5a5a; }
+
+/* Botões do cartão */
+.acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.apagar,
+.editar {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px;
+}
+
+.apagar { color: #ff7a7a; }
+.editar { color: #b5aaff; }
+
+/* Formulário */
+#formulario {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+#formulario input {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  width: 60%;
+  max-width: 300px;
+}
+
+#formulario select {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+}
+
+#formulario button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #7c6cf0;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Links dos documentos */
+#documentos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+#documentos a {
+  background: #2a2a3c;
+  color: #b5aaff;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  border: 1px solid #444;
+}
+
+#documentos a:hover {
+  background: #3b3b52;
+}
+
+/* Filtros */
+#filtros {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+#filtros button {
+  background: #2a2a3c;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 14px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#filtros button.ativo {
+  background: #7c6cf0;
+  border-color: #7c6cf0;
+}
+
+/* Status da conexão */
+#status {
+  text-align: center;
+  font-size: 12px;
+  color: #9fd8b0;
+  margin: 0 0 10px 0;
+}
+
+#status.erro {
+  color: #ff7a7a;
+}
+
+/* Exportar / importar */
+#backup {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+#backup button {
+  background: #2a2a3c;
+  color: #b5aaff;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#backup button:hover {
+  background: #3b3b52;
+}
+
+/* Explicação das colunas */
+#explicacao {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 2px solid #444;
+}
+
+#explicacao h2 {
+  text-align: center;
+  font-size: 18px;
+}
+
+.guia {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.guia .item {
+  background: #2a2a3c;
+  border-left: 4px solid #7c6cf0;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.guia h3 {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  color: #b5aaff;
+}
+
+.guia p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+}
