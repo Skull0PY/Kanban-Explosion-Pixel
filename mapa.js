@@ -525,7 +525,13 @@
   svg.setAttribute("viewBox", "0 0 100 100");
   svg.setAttribute("preserveAspectRatio", "none");
   svg.setAttribute("aria-hidden", "true");
+  svg.style.cssText = "position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;overflow:visible";
   const linhaRota = document.createElementNS(NS, "polyline");
+  linhaRota.setAttribute("fill", "none");
+  linhaRota.setAttribute("stroke", "#c9b8ff");
+  linhaRota.setAttribute("stroke-width", "2");
+  linhaRota.setAttribute("stroke-dasharray", "6 5");
+  linhaRota.setAttribute("vector-effect", "non-scaling-stroke");
   svg.appendChild(linhaRota);
   mapa.appendChild(svg);
 
