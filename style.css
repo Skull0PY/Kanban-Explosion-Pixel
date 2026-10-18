@@ -849,3 +849,21 @@ h1 {
     display: block;
   }
 }
+
+/* Polimento v3: especificações e botões */
+.tags { gap: 8px; }
+.tag {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(181, 170, 255, 0.35);
+  color: #ece8ff;
+  padding: 4px 11px;
+  font-weight: 600;
+}
+.pcorpo h4 {
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.prob summary { cursor: pointer; padding: 10px 12px; }
+.prob summary:hover { background: rgba(255, 255, 255, 0.06); }
+.chip, .aba { transition: background .15s, transform .1s; }
+.chip:active, .aba:active { transform: scale(0.96); }
