@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
@@ -12,12 +11,18 @@
   <header id="topo">
     <h1>Kanban, Explosion Pixel</h1>
     <p class="subtitulo">Quadro de tarefas do estúdio</p>
+    <div id="abas" role="tablist" aria-label="Telas do site">
+      <button type="button" class="aba ativa" role="tab" aria-selected="true" data-vista="quadro">📋 Quadro</button>
+      <button type="button" class="aba" role="tab" aria-selected="false" data-vista="mapa">🗺 Mapa do jogo</button>
+    </div>
     <nav id="documentos">
       <a href="guia_organizacao_game_dev.pdf" target="_blank">📘 Guia de Organização</a>
       <a href="GDD_Turno_de_Avaliacao.docx" target="_blank">🎮 GDD Turno de Avaliação</a>
       <a href="sistema_avaliacao.pdf" target="_blank">📊 Sistema de Avaliação</a>
     </nav>
   </header>
+
+<div id="vista-quadro">
 
   <section class="painel">
     <div id="formulario">
@@ -109,8 +114,45 @@
     </div>
   </section>
 
+</div>
+
+<section id="vista-mapa" hidden>
+  <div class="mapa-cabecalho">
+    <h2>Mapa do jogo</h2>
+    <p>Toque numa bolinha pra ver a lista de problemas daquele ponto.</p>
+  </div>
+
+  <div id="mapa-filtros" class="mapa-filtros" role="group" aria-label="Filtrar por tempo">
+    <span class="rotulo">Tempo:</span>
+  </div>
+
+  <div class="mapa-layout">
+    <div class="mapa-coluna">
+      <div class="mapa-rolagem">
+        <div id="mapa-jogo" class="mapa-jogo"></div>
+      </div>
+      <div class="mapa-legenda" aria-label="Legenda">
+        <span><i style="--c:#ef5350"></i>Crítica</span>
+        <span><i style="--c:#ffa040"></i>Alta</span>
+        <span><i style="--c:#e6c34a"></i>Média</span>
+        <span><i style="--c:#6fbf84"></i>Baixa</span>
+        <span><i style="--c:#9ca3af"></i>Sem gravidade</span>
+        <span><i style="--c:#5aa9ff"></i>Gerente</span>
+        <span class="leg-rota"><i></i>Sequência do problema 17 (1, 2, 3)</span>
+      </div>
+      <p class="mapa-nota">O número dentro da bolinha é a quantidade de problemas do ponto. A cor é a maior gravidade entre eles.</p>
+      <p class="mapa-dica">↔ No celular, arraste o mapa pro lado pra ver o resto.</p>
+      <div id="mapa-sem-ponto"></div>
+    </div>
+    <aside id="mapa-painel" class="mapa-painel" aria-live="polite">
+      <p class="vazio">Toque numa bolinha do mapa pra ver os problemas daquele ponto.</p>
+    </aside>
+  </div>
+</section>
+
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
   <script src="script.js"></script>
+  <script src="mapa.js"></script>
 </body>
 </html>
