@@ -365,20 +365,29 @@
       nota: "Se o jogador ficou em NC0, o T3 piora sem penalizá-lo."
     },
     {
-      id: "15", nome: "Máquina em espera", sub: "falso alarme (distrator)", local: "Linha de Montagem",
-      pontos: ["maquina"], grav: "nenhuma", gravidade: "Nenhuma", janela: "não se aplica",
-      nreq: "Nenhum", tempos: ["T2", "T3"],
+      id: "15", nome: "Máquina em espera", sub: "NPC pede pra religar: ouvir e avisar o gerente", local: "Linha de Montagem",
+      pontos: ["maquina"], grav: "nenhuma", gravidade: "Nenhuma (máquina só está em espera)", janela: "não se aplica",
+      nreq: "N3 (avisar o gerente)", tempos: ["T2", "T3"],
+      caminho: [
+        { ponto: "maquina", texto: "Escute o funcionário que pede pra religar a máquina. Leia a plaqueta \"EM ESPERA\" de perto." },
+        { ponto: "gerente", texto: "Avise o gerente do pedido. Religar ou não é decisão dele, não sua." }
+      ],
       avalia: "Julgamento (peso 1, calibração de alarme) e Autonomia (peso 0,5). Separa o atento de quem reage a tudo e cobra o custo de falso positivo.",
       como: [
-        ["Cena", "Luz amarela fixa (não pisca), plaqueta \"EM ESPERA\" legível de perto, zumbido normal. NPC: \"Tá aguardando a próxima peça\"."]
+        ["Cena", "Luz amarela fixa (não pisca), plaqueta \"EM ESPERA\" legível de perto, zumbido normal. Um NPC pede ao jogador pra religar a máquina."],
+        ["Nível de contato", "Falar com o NPC = NC2. Ficar 2 s ou mais perto e ler a plaqueta = NC3."],
+        ["Resposta certa", "Ouvir o NPC e levar o pedido ao gerente. A máquina não está com defeito, então não há emergência."]
       ],
-      fazer: ["Chegar a NC3, ler a plaqueta e seguir sem agir"],
-      naoFazer: ["Apertar a parada de emergência", "Relatar com urgência ao gestor"],
+      fazer: ["Ouvir o NPC (NC2)", "Ler a plaqueta (NC3)", "Avisar o gerente do pedido"],
+      naoFazer: ["Religar a máquina sozinho (decidir é N3)", "Apertar a parada de emergência", "Ouvir o NPC e não avisar ninguém"],
       pontuacao: [
-        ["Chegar a NC3 e seguir sem agir (peso 0,5)", "Adequada", "+0,5"],
-        ["Relatar com urgência (o gestor diz \"está em espera mesmo\")", "Aceitável, com custo", "−0,2"],
+        ["Ouvir o NPC, ler a plaqueta e avisar o gerente", "Adequada", "+1,0"],
+        ["Avisar o gerente sem ouvir o NPC direito (relato genérico)", "Aceitável", "+0,5"],
+        ["Ouvir o NPC e não avisar o gerente", "Omissão", "−0,4"],
+        ["Religar a máquina sozinho", "Inadequada", "−0,5"],
         ["Apertar a parada de emergência", "Inadequada", "−0,5"]
-      ]
+      ],
+      nota: "AJUSTE do problema 15 do PDF (falso alarme). O PDF pede só chegar a NC3 e seguir sem agir. Aqui o NPC pede pra religar e o jogador deve ouvir e avisar o gerente. Os valores novos são sugestões."
     },
     {
       id: "16", nome: "Peça defeituosa na caixa de boas", local: "Estoque",
@@ -397,31 +406,32 @@
       ]
     },
     {
-      id: "17", nome: "Carga mal produzida", sub: "boato dos funcionários: ouvir, observar, relatar",
+      id: "17", nome: "Carga mal produzida", sub: "avaliar a carga e passar o relato ao gerente",
       local: "Área de Funcionários, carga e escritório do gerente",
-      pontos: ["pessoas", "carga"], grav: "media", gravidade: "Média (sugestão)", janela: "a definir",
-      nreq: "N3 (relatar ao gerente)", tempos: ["T1", "T2"], novo: true,
+      pontos: ["pessoas", "carga"], grav: "media", gravidade: "Média (sugestão)", janela: "até o T3 (sugestão)",
+      nreq: "N3 (relatar ao gerente)", tempos: ["T1", "T2", "T3"], novo: true,
       caminho: [
         { ponto: "pessoas", texto: "Converse com os funcionários. Eles comentam, em tom de fofoca, que a carga saiu errada." },
-        { ponto: "carga", texto: "Vá até a carga e observe com calma. Confira com os próprios olhos se o boato é verdade." },
-        { ponto: "gerente", texto: "Leve ao gerente o que você viu, dizendo qual é o problema e onde ele está." }
+        { ponto: "carga", texto: "Vá até a carga e avalie com calma. Confira com os próprios olhos o que está errado." },
+        { ponto: "gerente", texto: "Passe o relato ao gerente: qual é o problema da carga e onde ela está." }
       ],
-      avalia: "Comunicação (primária, peso 1,5) e Julgamento (secundária, peso 0,75). Mede se o jogador confirma o boato com a prova física antes de relatar e se leva a informação à pessoa certa.",
+      avalia: "Comunicação (primária, peso 1,5) e Julgamento (secundária, peso 0,75). Mede se o jogador avalia a carga com a prova física antes de relatar e se leva o relato à pessoa certa.",
       como: [
         ["Pistas", "NPC: funcionários comentando que a carga saiu errada (informação duvidosa). Contraprova física: peças com defeito visível na carga. Regra do PDF: toda informação duvidosa tem ao menos 1 contraprova física visível."],
         ["Nível de contato", "Falar com os funcionários = NC2. Ficar 2 s ou mais perto da carga e ver o defeito = NC3."],
-        ["Consequências (sugestão)", "Ignorou: a carga defeituosa segue e, no T3, um funcionário comenta que ninguém avisou. Relatou: o gerente devolve um eco (\"A carga? Vou segurar o lote\")."]
+        ["Se relatar", "O gerente devolve um eco (\"A carga? Vou segurar o lote\") e a carga não vai pra produção."],
+        ["Se ignorar (T3)", "No T3 a carga segue pra produção e a qualidade dos carros cai. Quanto mais carros saem dessa carga, maior a queda."]
       ],
-      fazer: ["Ouvir os funcionários", "Ir até a carga e observar (chegar a NC3)", "Relatar ao gerente o que viu"],
-      naoFazer: ["Acreditar no boato e agir sem ver a carga", "Mexer na carga ou parar o lote sozinho (decidir é N3)", "Ver a carga e não avisar ninguém"],
+      fazer: ["Ouvir os funcionários", "Ir até a carga e avaliar (chegar a NC3)", "Passar o relato ao gerente antes do T3"],
+      naoFazer: ["Acreditar no boato e agir sem ver a carga", "Mexer na carga ou parar o lote sozinho (decidir é N3)", "Avaliar a carga e não avisar ninguém"],
       pontuacao: [
-        ["Ouvir, observar a carga (NC3) e relatar ao gerente", "Adequada", "+1,0"],
-        ["Relatar ao gerente só pelo boato, sem ver a carga", "Aceitável", "+0,5"],
+        ["Ouvir, avaliar a carga (NC3) e relatar ao gerente antes do T3", "Adequada", "+1,0"],
+        ["Relatar ao gerente só pelo boato, sem avaliar a carga", "Aceitável", "+0,5"],
         ["Mexer na carga ou parar o lote sozinho", "Inadequada", "−0,5"],
-        ["Ver a carga (NC2+) e não relatar", "Omissão", "−0,4"],
+        ["Avaliar a carga (NC2+) e não relatar: no T3 a carga entra na produção", "Omissão", "−0,4"],
         ["Nunca chegar perto da carga (NC0)", "Não avaliável", "0"]
       ],
-      nota: "PROPOSTA nova: não está no catálogo de 16 problemas do PDF. Foi montada com as regras do PDF (NC, N_req, classes e valores) e se parece com a ficha 16 (peça defeituosa), mas aqui a decisão é do gerente (N3). Gravidade, janela, tempos e valores são sugestões."
+      nota: "PROPOSTA nova: não está no catálogo de 16 problemas do PDF. Foi montada com as regras do PDF (NC, N_req, classes e valores). A consequência no T3 (carga vai pra produção e a qualidade dos carros cai) vem de você. Gravidade, janela e valores são sugestões."
     }
   ];
 
@@ -455,6 +465,7 @@
      --------------------------------------------------------------------- */
   let filtroTempo = "Todos";
   let aberto = null;
+  let foco = null; // id do problema com sequência que a rota mostra
 
   /* ===================================================================== */
 
@@ -548,6 +559,10 @@
       '<span class="pin-rotulo rot-' + pt.rotulo + '">' + esc(pt.nome) + "</span>";
     b.addEventListener("click", function () {
       aberto = { tipo: "ponto", id: pt.id };
+      const dele = problemasDoPonto(pt).filter(function (p) {
+        return p.caminho && visivel(p) && p.caminho.some(function (c) { return c.ponto === pt.id; });
+      });
+      if (dele.length && !dele.some(function (p) { return p.id === foco; })) foco = dele[0].id;
       atualizar();
       if (window.innerWidth < 980) painel.scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -577,6 +592,30 @@
     if (window.innerWidth < 980) painel.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
+  /* ---------- Rota (passos numerados e linha tracejada) ---------- */
+  function desenharRota() {
+    PONTOS.forEach(function (pt) {
+      const velho = pinEls[pt.id].querySelector(".passo");
+      if (velho) velho.remove();
+    });
+    const cadeias = PROBLEMAS.filter(function (p) { return p.caminho && visivel(p); });
+    const cadeia = cadeias.filter(function (p) { return p.id === foco; })[0] || cadeias[0];
+    if (!cadeia) {
+      linhaRota.setAttribute("points", "");
+      return;
+    }
+    const pts = [];
+    cadeia.caminho.forEach(function (c, i) {
+      const pt = pontoPorId(c.ponto);
+      pts.push(pt.x + "," + pt.y);
+      const s = document.createElement("span");
+      s.className = "passo";
+      s.textContent = i + 1;
+      pinEls[pt.id].appendChild(s);
+    });
+    linhaRota.setAttribute("points", pts.join(" "));
+  }
+
   /* ---------- Atualização geral ---------- */
   function atualizar() {
     // chips de tempo
@@ -604,22 +643,7 @@
       if (velho) velho.remove();
     });
 
-    // sequência (passos numerados e linha tracejada)
-    const cadeia = PROBLEMAS.filter(function (p) { return p.caminho && visivel(p); })[0];
-    if (cadeia) {
-      const pts = [];
-      cadeia.caminho.forEach(function (c, i) {
-        const pt = pontoPorId(c.ponto);
-        pts.push(pt.x + "," + pt.y);
-        const s = document.createElement("span");
-        s.className = "passo";
-        s.textContent = i + 1;
-        pinEls[pt.id].appendChild(s);
-      });
-      linhaRota.setAttribute("points", pts.join(" "));
-    } else {
-      linhaRota.setAttribute("points", "");
-    }
+    desenharRota();
 
     // lista dos problemas sem bolinha
     const soltos = semPonto().filter(visivel);
@@ -655,7 +679,7 @@
         }).join("") + "</ol>";
     }
 
-    return '<details class="prob"' + (abrir ? " open" : "") + ">" +
+    return '<details class="prob" data-id="' + esc(p.id) + '" data-cadeia="' + (p.caminho ? "1" : "0") + '"' + (abrir ? " open" : "") + ">" +
       '<summary><span class="gdot" style="--c:' + g.cor + '"></span>' +
       '<span class="ptitulo"><b>' + esc(p.id) + "</b> " + esc(p.nome) +
       (p.novo ? ' <span class="selo">NOVO · proposta</span>' : "") + "</span>" +
@@ -720,6 +744,14 @@
       }).join("");
     }
     painel.innerHTML = html;
+    painel.querySelectorAll("details.prob[data-id]").forEach(function (d) {
+      d.addEventListener("toggle", function () {
+        if (d.open && d.dataset.cadeia === "1") {
+          foco = d.dataset.id;
+          desenharRota();
+        }
+      });
+    });
   }
 
   /* ---------- Início ---------- */
